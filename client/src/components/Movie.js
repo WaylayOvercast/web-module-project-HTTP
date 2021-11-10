@@ -15,11 +15,22 @@ const Movie = (props) => {
         axios.get(`http://localhost:5000/api/movies/${id}`)
             .then(res=>{
                 setMovie(res.data);
+                
             })
             .catch(err=>{
                 console.log(err.response);
             })
     }, [id]);
+
+    const remove =()=>{
+        axios.delete(`http://localhost:5000/api/movies/${id}`)
+        .then(res => {
+            console.log(res)
+            console.log(props.appState[res.data])
+            props.setAppState(props.appState.filter(state=> state.id !== parseInt(res.data) ))
+            push('/movies')
+        })
+    }
 
     return(<div className="modal-page col">
         <div className="modal-dialog">
@@ -52,7 +63,7 @@ const Movie = (props) => {
                         <section>
                             <span className="m-2 btn btn-dark">Favorite</span>
                             <Link to={`/movies/edit/${movie.id}`} className="m-2 btn btn-success">Edit</Link>
-                            <span className="delete"><input type="button" className="m-2 btn btn-danger" value="Delete"/></span>
+                            <span className="delete"><input type="button" onClick={remove} className="m-2 btn btn-danger" value="Delete"/></span>
                         </section>
                     </div>
                 </div>
