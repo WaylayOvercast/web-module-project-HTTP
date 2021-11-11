@@ -20,9 +20,10 @@ const AddMovieForm = (props) => {
 
 	const updateMovie =(e)=>{
 
-        axios.post(`http://localhost:5000/api/movies/${newMovie.id}`,e)
+        axios.post(`http://localhost:5000/api/movies`,e)
         .then(res=>{
 			props.setAppState(res.data)
+			console.log(res)
 			push(`/movies`)
         })
         .catch(err=>{
@@ -73,7 +74,7 @@ const AddMovieForm = (props) => {
 					
 									
 					    
-					<input type="submit" value="Save"/>
+					<input type="submit" value="submit"/>
 			</form>);
 }
 
